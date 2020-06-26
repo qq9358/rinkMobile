@@ -12,6 +12,13 @@
 			"navigationBarTitleText": "提交订单"
 		}
 	}, {
+		"path": "pages/ticket/ticket-type",
+		"style": {
+			"app-plus": {
+				"titleNView": false
+			}
+		}
+	},{
 		"path": "pages/order/order",
 		"style": {
 			"navigationBarTitleText": "我的订单"
@@ -19,7 +26,9 @@
 	}, {
 		"path": "pages/member/member-center",
 		"style": {
-			"navigationBarTitleText": "我的"
+			"app-plus": {
+				"titleNView": false
+			}
 		}
 	}, {
 		"path": "pages/payment/wx-js-pay",
@@ -64,18 +73,18 @@
 	    "backgroundColor": "#ffffff",
 	    "list": [{
 	        "pagePath": "pages/index/index",
-	        "iconPath": "static/image/home.png",
-	        "selectedIconPath": "static/image/home-blue.png",
+	        "iconPath": "static/images/tabbar/home.png",
+	        "selectedIconPath": "static/images/tabbar/home-blue.png",
 	        "text": "主页"
 	    }, {
 	        "pagePath": "pages/order/order",
-	        "iconPath": "static/image/cate.png",
-	        "selectedIconPath": "static/image/cate-blue.png",
+	        "iconPath": "static/images/tabbar/cate.png",
+	        "selectedIconPath": "static/images/tabbar/cate-blue.png",
 	        "text": "订单"
 	    }, {
 	        "pagePath": "pages/member/member-center",
-	        "iconPath": "static/image/user.png",
-	        "selectedIconPath": "static/image/user-blue.png",
+	        "iconPath": "static/images/tabbar/user.png",
+	        "selectedIconPath": "static/images/tabbar/user-blue.png",
 	        "text": "我"
 	    }]
 	}

@@ -47,5 +47,19 @@
             "urlCheck" : false
         },
         "permission" : {}
+    },
+    "h5" : {
+        "title" : "冰场管理系统",
+        "router" : {
+            "mode" : "history",
+            "base" : ""
+        },
+        "sdkConfigs" : {
+            "maps" : {
+                "qqmap" : {
+                    "key" : "ORXBZ-VFLRQ-MUS53-GNC4G-FFACE-SPFBQ"
+                }
+            }
+        }
     }
 }
