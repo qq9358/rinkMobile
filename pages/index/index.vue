@@ -1,13 +1,5 @@
 <template>
 	<view class="view-index">
-		<swiper autoplay circular disable-touch interval="5000" :duration="150" class="color-swiper">
-			<swiper-item v-for="(item, index) in images" :key="index">
-				<view class="view-gradient" :style="{ background: `linear-gradient(to bottom right, ${selectColors[index][0]}, ${selectColors[index][1]})` }">
-					<view class="view-style"><img class="style-img" src="@/static/images/pages/index/index_header_style.png" /></view>
-					<view class="view-title">冰场票务中心</view>
-				</view>
-			</swiper-item>
-		</swiper>
 		<view class="gradient-view">
 			<view class="tui-banner-box">
 				<swiper
@@ -20,7 +12,13 @@
 					indicator-color="rgba(255, 255, 255, 0.8)"
 					indicator-active-color="#fff"
 				>
-					<swiper-item v-for="(item, index) in images" :key="index" @tap.stop="detail"><image :src="item" class="tui-slide-image" mode="scaleToFill" /></swiper-item>
+					<swiper-item v-for="(item, index) in images" :key="index" @tap.stop="detail">
+						<view class="view-gradient" :style="{ background: `linear-gradient(to bottom right, ${selectColors[index][0]}, ${selectColors[index][1]})` }">
+							<view class="view-style"><img class="style-img" src="@/static/images/pages/index/index_header_style.png" /></view>
+							<view class="view-title">冰场票务中心</view>
+							<image :src="item" class="tui-slide-image" mode="scaleToFill" />
+						</view>
+					</swiper-item>
 				</swiper>
 			</view>
 		</view>
@@ -62,7 +60,7 @@
 					indicator-active-color="#fff"
 				>
 					<swiper-item v-for="(item, index) in activityImages" :key="index" @tap.stop="detail">
-						<image :src="item" class="tui-slide-image" mode="scaleToFill" />
+						<view class="view-activity-image"><image :src="item" class="activity-image" mode="scaleToFill" /></view>
 					</swiper-item>
 				</swiper>
 			</view>
@@ -119,7 +117,7 @@
 						3
 					</view>
 					<view v-else class="coach-num-null"></view>
-					<view class="coach-icon"><img class="coach-icon-img" src="@/static/images/pages/index/coach_icon_confirm.png"/></view>
+					<view class="coach-icon"><img class="coach-icon-img" src="@/static/images/pages/index/coach_icon_confirm.png" /></view>
 					<view class="icon-background"><text class="iconfont icon-kecheng icon-kecheng-confirm"></text></view>
 					<view class="coach-title">待确认课程</view>
 				</view>
@@ -130,7 +128,7 @@
 						2
 					</view>
 					<view v-else class="coach-num-null"></view>
-					<view class="coach-icon"><img class="coach-icon-img" src="@/static/images/pages/index/coach_icon_teach.png"/></view>
+					<view class="coach-icon"><img class="coach-icon-img" src="@/static/images/pages/index/coach_icon_teach.png" /></view>
 					<view class="icon-background"><text class="iconfont icon-kecheng icon-kecheng-teach"></text></view>
 					<view class="coach-title">待教学课程</view>
 				</view>
@@ -143,7 +141,7 @@
 						1
 					</view>
 					<view v-else class="coach-num-null"></view>
-					<view class="coach-icon"><img class="coach-icon-img" src="@/static/images/pages/index/coach_icon_end.png"/></view>
+					<view class="coach-icon"><img class="coach-icon-img" src="@/static/images/pages/index/coach_icon_end.png" /></view>
 					<view class="icon-background"><text class="iconfont icon-kecheng icon-kecheng-end"></text></view>
 					<view class="coach-title">已完结课程</view>
 				</view>
@@ -154,47 +152,12 @@
 						3
 					</view>
 					<view v-else class="coach-num-null"></view>
-					<view class="coach-icon"><img class="coach-icon-img" src="@/static/images/pages/index/coach_icon_lesson.png"/></view>
+					<view class="coach-icon"><img class="coach-icon-img" src="@/static/images/pages/index/coach_icon_lesson.png" /></view>
 					<view class="icon-background"><text class="iconfont icon-kecheng icon-kecheng-lesson"></text></view>
 					<view class="coach-title">教练课表</view>
 				</view>
 			</view>
 		</view>
-		<view class="view-categorys">
-			<view v-for="category in categorys" :key="category.id" class="view-category">
-				<view class="category-header">
-					<view class="iconfont icon-menpiao"></view>
-					<text>{{ category.name }}</text>
-				</view>
-				<view class="category-body">
-					<view v-for="ticketType in ticketTypes" :key="ticketType.id" class="view-items">
-						<view class="item-content">
-							<view class="item-name">{{ ticketType.name }}</view>
-							<view class="item-status">
-								<text>{{ ticketType.travelDateText }}</text>
-								<text :style="{ color: getRefundColor(ticketType) }">{{ ' ' + ticketType.refundText + ' ' }}</text>
-								<text>无需取票</text>
-							</view>
-							<view class="item-explain" @click="onShowDescription(ticketType)"><text>新品 | 购买须知></text></view>
-						</view>
-						<view class="item-active">
-							<view class="view-price">
-								<text class="text-price">￥{{ ticketType.price }}</text>
-							</view>
-							<view class="view-book" @click="onBuy(ticketType)"><button>立即预订</button></view>
-						</view>
-					</view>
-				</view>
-			</view>
-		</view>
-		<ticket-type-description
-			v-model="showDescription"
-			:show-buy="true"
-			:ticketTypeId="selectedTicketType.id"
-			:ticketTypeName="selectedTicketType.name"
-			:price="selectedTicketType.price"
-			:shouldRead="selectedTicketType.shouldReadDescription"
-		></ticket-type-description>
 		<notice v-model="showNotice" @close="onCloseNotice"></notice>
 	</view>
 </template>
@@ -413,7 +376,7 @@ export default {
 		onCloseNotice() {
 			this.showNotice = false;
 		},
-		onTicketClick(){
+		onTicketClick() {
 			console.log('a');
 			uni.navigateTo({
 				url: '/pages/ticket/ticket-type'
@@ -460,7 +423,7 @@ export default {
 
 	.gradient-view {
 		width: 100%;
-		border-radius: 6px;
+		// border-radius: 6px;
 		overflow: hidden;
 		.gradient-img {
 			width: 100%;
@@ -471,7 +434,7 @@ export default {
 	.view-module {
 		display: flex;
 		justify-content: space-between;
-		padding: 10px 11px 20px 11px;
+		padding: 10px 11px 30px 11px;
 
 		.module-left {
 			width: 50%;
@@ -583,8 +546,8 @@ export default {
 		.coach-icon {
 			margin-top: -38px;
 		}
-		
-		.coach-icon-img{
+
+		.coach-icon-img {
 			width: 58px;
 		}
 
@@ -672,6 +635,21 @@ export default {
 		}
 	}
 
+	.view-activity-swiper {
+		padding: 0px 15px 0px 15px;
+		.view-activity-image {
+			width: calc(100%);
+			height: calc(100%);
+			display: block;
+			.activity-image {
+				height: 100%;
+				width: 100%;
+				border-radius: 12px;
+				overflow: hidden;
+			}
+		}
+	}
+
 	.view-icon-button {
 		display: flex;
 		justify-content: space-between;
@@ -725,33 +703,6 @@ export default {
 		}
 	}
 
-	.scenic-ext {
-		padding: 13px 15px;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		background-color: #ffffff;
-
-		&-title {
-			font-size: 15px;
-
-			span {
-				margin-right: 5px;
-			}
-		}
-
-		&-word {
-			margin-top: 8px;
-			line-height: 13px;
-			font-size: 12px;
-			color: #999;
-		}
-
-		.iconfont {
-			font-size: 14px;
-		}
-	}
-
 	.scenic-more {
 		text-align: right;
 		line-height: 24px;
@@ -769,90 +720,6 @@ export default {
 		.iconfont {
 			vertical-align: middle;
 			font-size: 14px;
-		}
-	}
-
-	.view-introduction {
-		display: flex;
-		padding: 13px 15px;
-		justify-content: space-between;
-		font-size: 15px;
-		background-color: #fff;
-		.introduction-active {
-			display: flex;
-			justify-content: space-between;
-			// align-items: center;
-			color: #999;
-			.icon-arrow {
-				font-size: 20px;
-			}
-		}
-	}
-	.view-categorys {
-		.view-category {
-			margin-top: 10px;
-			background: #fff;
-			.category-header {
-				display: flex;
-				padding: 8px 15px;
-				border-bottom: 1px solid #dbdbdb;
-				font-size: 17px;
-				align-items: center;
-				.icon-menpiao {
-					padding: 1px 3px 0px 3px;
-					background-color: #ff7d13;
-					border-radius: 25px;
-					line-height: 1.5;
-					color: #ffffff;
-					font-size: 12px;
-					height: 19px;
-					margin-right: 7px;
-				}
-			}
-			.category-body {
-				.view-items {
-					padding: 10px 13px 10px 0px;
-					margin-left: 15px;
-					display: flex;
-					justify-content: space-between;
-					border-bottom: 1px solid #dbdbdb;
-					.item-content {
-						.item-name {
-							margin-bottom: 5px;
-							padding-right: 0;
-							line-height: 18px;
-							font-size: 14px;
-							color: #000;
-							text-overflow: ellipsis;
-							overflow: hidden;
-						}
-						.item-status {
-							color: #099fde;
-							font-size: 11px;
-							padding: 0px 0px 7px 0px;
-						}
-						.item-explain {
-							font-size: 12px;
-							color: #999;
-							height: 21px;
-							line-height: 21px;
-						}
-					}
-					.item-active {
-						.view-price {
-							font-size: 20px;
-							font-style: normal;
-							color: #f40;
-							text-align: right;
-							overflow: hidden;
-							word-break: break-all;
-							font-weight: 400;
-							.text-price {
-							}
-						}
-					}
-				}
-			}
 		}
 	}
 }
@@ -876,7 +743,7 @@ export default {
 
 .tui-banner-box {
 	width: 100%;
-	padding: 0 30rpx;
+	/* padding: 0 30rpx; */
 	box-sizing: border-box;
 	// position: absolute;
 	/* overflow: hidden; */
@@ -886,15 +753,16 @@ export default {
 }
 
 .tui-slide-image {
-	width: 100%;
-	height: 100%;
+	width: calc(100% - 60rpx);
+	height: calc(100% - 60rpx);
 	display: block;
+	padding: 16rpx 30rpx 0px 30rpx;
 }
 
 .tui-banner-swiper {
 	width: 100%;
-	height: 230rpx;
-	border-radius: 12rpx;
+	height: 390rpx;
+	/* border-radius: 12rpx; */
 	overflow: hidden;
 	transform: translateY(0);
 }
@@ -963,15 +831,14 @@ export default {
 }
 
 .gradient-view {
-	height: 230rpx;
-	margin-top: -180rpx;
+	height: 390rpx;
 }
 
 .view-module {
 	height: 400rpx;
 }
 
-.coach-view{
+.coach-view {
 	height: 200rpx;
 }
 </style>

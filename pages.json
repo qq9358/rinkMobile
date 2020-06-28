@@ -30,6 +30,21 @@
 				"titleNView": false
 			}
 		}
+	},{
+		"path": "pages/member/course-search",
+		"style": {
+			"navigationBarTitleText": "上课记录查询"
+		}
+	},{
+		"path": "pages/member/my-integral",
+		"style": {
+			"navigationBarTitleText": "我的积分"
+		}
+	},{
+		"path": "pages/member/message-list",
+		"style": {
+			"navigationBarTitleText": "消息列表"
+		}
 	}, {
 		"path": "pages/payment/wx-js-pay",
 		"style": {
@@ -61,9 +76,9 @@
 		}
 	},
 	"globalStyle": {
-		"navigationBarTextStyle": "white",
-		"navigationBarTitleText": "tui-app",
-		"navigationBarBackgroundColor": "#19a0f0",
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "冰块管理系统",
+		"navigationBarBackgroundColor": "#ffffff",
 		"backgroundColor": "#FFFFFF"
 	},
 	"tabBar": {

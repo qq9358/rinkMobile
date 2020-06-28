@@ -1,21 +1,21 @@
 <template>
 	<view class="view-my">
-		<!-- <view type="flex" align="center" class="poster margin-bottom-10">
-			<view span="8" class="poster-headimg"><image :src="member.headImgUrl" class="head-image" /></view>
-			<view span="16">
-				<view class="poster-name margin-bottom-10">{{ member.name }}</view>
-				<view class="poster-name" v-if="member.customerName">{{ member.customerName }}</view>
-			</view>
-		</view> -->
-
 		<view class="my-header">
 			<view class="view-header-img">
-				<view class="header-img-view"><img class="header-img" src="@/static/images/pages/my/my_icon_head.png" /></view>
+				<view class="header-img-view"><img class="header-img" :src="member.headImgUrl" /></view>
 			</view>
 			<view class="view-header-member">
-				<view class="header-member-view">
+				<view v-if="showLogin" class="header-member-view" @click="onLoginInClick">
 					<view class="view-member-link">注册/登录</view>
 					<view class="view-member-explain">登录后享受更多优惠及服务</view>
+				</view>
+				<view v-if="!showLogin" class="header-member-view" @click="onLoginOutClick">
+					<view class="view-member-name">181****9823</view>
+					<view class="view-member-strip"><view class="member-strip-view"></view></view>
+					<view class="view-member-level">
+						<view class="member-level-num">LV3</view>
+						<view class="member-level-name">初级会员</view>
+					</view>
 				</view>
 			</view>
 		</view>
@@ -28,7 +28,7 @@
 						</view>
 						<view class="body-col-title">我的课程</view>
 					</view>
-					<view class="my-body-col body-col-card">
+					<view class="my-body-col body-col-card" @click="onCardClick">
 						<view class="col-icon-view col-icon-card">
 							<view class="icon-img-view"><img class="col-icon-img" src="@/static/images/pages/my/my_icon_card.png" /></view>
 						</view>
@@ -36,7 +36,7 @@
 					</view>
 				</view>
 				<view class="my-body-row">
-					<view class="my-body-col body-col-search">
+					<view class="my-body-col body-col-search" @click="onCourseClick">
 						<view class="col-icon-view col-icon-search">
 							<view class="icon-img-view"><img class="col-icon-img" src="@/static/images/pages/my/my_icon_search.png" /></view>
 						</view>
@@ -50,7 +50,7 @@
 					</view>
 				</view>
 				<view class="my-body-row">
-					<view class="my-body-col body-col-integral">
+					<view class="my-body-col body-col-integral" @click="onIntegralClick">
 						<view class="col-icon-view col-icon-integral">
 							<view class="icon-img-view"><img class="col-icon-img" src="@/static/images/pages/my/my_icon_integral.png" /></view>
 						</view>
@@ -69,20 +69,23 @@
 </template>
 
 <script>
-import defaultHeadImg from '@/static/images/pages/portrait_bg.png';
+import defaultHeadImg from '@/static/images/pages/my/my_icon_head.png';
+import iLoginHead from "@/static/images/pages/my/my_login_head.png";
 import memberService from '@/services/memberService.js';
 
 export default {
 	data() {
-		return {};
+		return {
+			member: {
+				headImgUrl: defaultHeadImg
+			},
+			showLogin: true
+		};
 	},
 	computed: {
-		headImgUrl() {
-			return this.member.headImgUrl || defaultHeadImg;
-		},
-		member() {
-			return memberService.getMember();
-		}
+		// member() {
+		// 	return memberService.getMember();
+		// }
 	},
 	methods: {
 		onMyTicket() {
@@ -93,6 +96,29 @@ export default {
 		onMyFace() {
 			uni.navigateTo({
 				url: '/pages/member/enroll-face'
+			});
+		},
+		onLoginInClick() {
+			this.member.headImgUrl = iLoginHead;
+			this.showLogin = false;
+		},
+		onLoginOutClick() {
+			this.member.headImgUrl = defaultHeadImg;
+			this.showLogin = true;
+		},
+		onCourseClick(){
+			uni.navigateTo({
+				url: "/pages/member/course-search"
+			})
+		},
+		onIntegralClick(){
+			uni.navigateTo({
+				url: "/pages/member/my-integral"
+			})
+		},
+		onCardClick(){
+			uni.navigateTo({
+				url: "/pages/member/message-list"
 			});
 		}
 	}
@@ -128,16 +154,45 @@ export default {
 			padding: 80px 15px 0px 15px;
 			.header-member-view {
 				background: #ffffff;
-				padding: 45px 0px 25px 0px;
+				padding: 0px 0px 0px 0px;
 				border-radius: 15px;
 				margin: 0 auto;
 				.view-member-link {
 					font-size: 20px;
+					padding: 45px 0px 0px 0px;
 				}
 				.view-member-explain {
 					font-size: 15px;
 					color: #b2b2b2;
-					padding: 7px 0px 0px 0px;
+					padding: 7px 0px 25px 0px;
+				}
+				.view-member-name{
+					color: #4c4c4c;
+					font-size: 20px;
+					padding: 40px 0px 12px 0px;
+				}
+				.view-member-strip{
+					border-radius: 25px;
+					width: 135px;
+					height: 5px;
+					overflow: hidden;
+					background: #bae5ff;
+					margin: 0 auto;
+					padding: 0px 0px 0px 0px;
+				}
+				.member-strip-view{
+					width: 50%;
+					height: 100%;
+					background: -webkit-linear-gradient(left, #30e7ff, #fe7d18);
+					background: linear-gradient(to right, #30e7ff, #009fff);
+				}
+				.view-member-level{
+					display: flex;
+					justify-content: space-between;
+					width: 140px;
+					margin: 0 auto;
+					color: #999999;
+					padding: 3px 0px 15px 0px;
 				}
 			}
 		}
@@ -157,9 +212,9 @@ export default {
 					color: #4c4c4c;
 					padding: 20px 0px 20px 0px;
 					width: 50%;
-					
-						border-right: 1px solid #e6e6e6;
-						border-bottom: 1px solid #e6e6e6;
+
+					border-right: 1px solid #e6e6e6;
+					border-bottom: 1px solid #e6e6e6;
 					.col-icon-view {
 						margin: 0 auto;
 						width: 70px;
@@ -177,7 +232,7 @@ export default {
 							}
 						}
 					}
-					.body-col-title{
+					.body-col-title {
 						margin-top: 10px;
 					}
 				}

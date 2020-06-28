@@ -6,6 +6,27 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "6044896",
+      "name": "angle",
+      "font_class": "angle",
+      "unicode": "e652",
+      "unicode_decimal": 58962
+    },
+    {
+      "icon_id": "3637784",
+      "name": "location",
+      "font_class": "location",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "7445",
+      "name": "右三角",
+      "font_class": "yousanjiao",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
       "icon_id": "12429869",
       "name": "已完结事项",
       "font_class": "yiwanjieshixiang",
