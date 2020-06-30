@@ -20,9 +20,9 @@
 					<view class="introduction-icon"><img class="introduction-right-img" src="@/static/images/pages/ticket-type/ice_icon_right.png" /></view>
 				</view>
 			</view>
-			<view class="ticket-map">
+			<view class="ticket-map" @click="onMapClick">
 				<view class="iconfont icon-location"></view>
-				<view class="location-text">深圳市宝安区新安街道扬田路德志高工业园</view>
+				<view class="location-text">{{ address }}</view>
 				<view class="map-link">
 					地图
 					<text class="iconfont icon-arrow"></text>
@@ -57,6 +57,7 @@
 			</view>
 		</view>
 		<tui-toast ref="toast"></tui-toast>
+		<ticket-map-choose v-model="showMapChoose" :latitudeProp="latitude" :longitudeProp="longitude" @close="onMapClose"></ticket-map-choose>
 	</view>
 </template>
 
@@ -66,6 +67,8 @@ import iIceSwiperTwo from '@/static/images/pages/ticket-type/ice_swiper_two.jpg'
 import iIceSwiperThree from '@/static/images/pages/ticket-type/ice_swiper_three.jpg';
 import iIceSwiperFour from '@/static/images/pages/ticket-type/ice_swiper_four.jpg';
 import iIceSwiperFive from '@/static/images/pages/ticket-type/ice_swiper_five.jpg';
+import mapJs from '@/utils/map.js';
+import toastHelper from '@/utils/toastHelper.js';
 
 export default {
 	data() {
@@ -117,20 +120,29 @@ export default {
 					refundLimited: 1,
 					price: 210
 				}
-			]
+			],
+			defaultAddress: '',
+			address: '',
+			showMapChoose: false,
+			longitude: 113.918604,
+			latitude: 22.584256
 		};
 	},
-	onLoad() {
+	async onLoad() {
 		this.getLocation();
 	},
 	methods: {
 		getLocation() {
 			let self = this;
+			self.getGeocoder();
 			uni.getLocation({
 				type: 'wgs84',
 				success: function(res) {
-					console.log('当前位置的经度：' + res.longitude);
-					console.log('当前位置的纬度：' + res.latitude);
+					toastHelper.noneToast('当前位置的经度：' + res.longitude);
+					toastHelper.noneToast('当前位置的纬度：' + res.latitude);
+					self.longitude = res.longitude;
+					self.latitude = res.latitude;
+					self.getGeocoder();
 				},
 				fail: function(res) {
 					console.log(res);
@@ -147,6 +159,52 @@ export default {
 				return '#ff2f39';
 			}
 			return ticketType.refundLimited ? '#fe7e18' : '#099fde';
+		},
+		onBuy() {
+			toastHelper.noneToast('点击了预订');
+		},
+		getGeocoder() {
+			let self = this;
+			// const KEY = 'ORXBZ-VFLRQ-MUS53-GNC4G-FFACE-SPFBQ';
+			const KEY = 'BFZBZ-OAAKX-V5U4Y-7MQZM-WE2L2-SUFJF';
+			this.$jsonp(`https://apis.map.qq.com/ws/geocoder/v1`, {
+				location: self.latitude + ',' + self.longitude,
+				key: KEY, // 你的key
+				get_poi: 1,
+				output: 'jsonp'
+			})
+				.then(res => {
+					self.address = res.result.address;
+				})
+				.catch(err => {
+					toastHelper.noneToast(err);
+				});
+		},
+		onMapClick() {
+			// this.showMapChoose = true;
+			let self = this;
+			console.log(self.latitude);
+			console.log(self.longitude);
+			uni.chooseLocation({
+				latitude: self.latitude,
+				longitude: self.longitude,
+			    success: function (res) {
+			        console.log('位置名称：' + res.name);
+			        console.log('详细地址：' + res.address);
+			        console.log('纬度：' + res.latitude);
+			        console.log('经度：' + res.longitude);
+					self.address = res.address;
+					self.latitude = res.latitude;
+					self.longitude = res.longitude;
+			    },
+				fail: function(res){
+					console.log(res);
+				}
+			});
+		},
+		onMapClose(res) {
+			this.showMapChoose = false;
+			console.log(res);
 		}
 	}
 };

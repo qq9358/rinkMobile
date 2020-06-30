@@ -186,7 +186,6 @@ export default {
 		.integral-info-item {
 			display: flex;
 			font-size: 14px;
-			// font-family: pingfang;
 			.integral-info-title {
 			}
 			.integral-info-num {
@@ -199,7 +198,6 @@ export default {
 	.view-integral-list {
 		.integral-list-item {
 			display: flex;
-			font-family: pingfang;
 			.list-item-icon {
 				padding: 20px 20px 20px 20px;
 				width: 23px;

@@ -14,28 +14,6 @@
 			</view>
 		</view>
 
-		<tui-top-dropdown :show="dropShow" :paddingbtm="110" :translatey="168" @close="btnCloseDrop">
-			<scroll-view class="tui-scroll-box" scroll-y scroll-with-animation :scroll-top="scrollTop">
-				<view class="tui-seizeaseat-20"></view>
-				<view
-					class="tui-drop-item"
-					:class="[item.selected ? 'tui-bold' : '']"
-					v-for="(item, index) in proDropData"
-					:key="index"
-					@tap.stop="btnSelected"
-					:data-index="index"
-				>
-					<tui-icon name="check" :size="16" color="#5677fc" :bold="true" v-if="item.selected"></tui-icon>
-					<text class="tui-ml tui-middle">{{ item.name }}</text>
-				</view>
-				<view class="tui-seizeaseat-30"></view>
-			</scroll-view>
-			<view class="tui-drop-btnbox">
-				<view class="tui-drop-btn tui-button-white" hover-class="tui-button-white_hover" :hover-stay-time="150" @tap="reset">重置</view>
-				<view class="tui-drop-btn tui-button-primary" hover-class="tui-button-hover" :hover-stay-time="150" @tap="btnCloseDrop">确定</view>
-			</view>
-		</tui-top-dropdown>
-
 		<view class="course-list-view">
 			<view v-for="course in courses" :key="course.courseId" class="course-item-view">
 				<view class="course-item-title">{{ course.name }}</view>
@@ -74,6 +52,28 @@
 				</view>
 			</view>
 		</view>
+
+		<tui-top-dropdown :show="dropShow" :paddingbtm="110" :translatey="translateY" :height="600" @close="btnCloseDrop">
+			<scroll-view class="tui-scroll-box" scroll-y scroll-with-animation :scroll-top="scrollTop">
+				<view class="tui-seizeaseat-20"></view>
+				<view
+					class="tui-drop-item"
+					:class="[item.selected ? 'tui-bold' : '']"
+					v-for="(item, index) in proDropData"
+					:key="index"
+					@tap.stop="btnSelected"
+					:data-index="index"
+				>
+					<tui-icon name="check" :size="16" color="#5677fc" :bold="true" v-if="item.selected"></tui-icon>
+					<text class="tui-ml tui-middle">{{ item.name }}</text>
+				</view>
+				<view class="tui-seizeaseat-30"></view>
+			</scroll-view>
+			<view class="tui-drop-btnbox">
+				<view class="tui-drop-btn tui-button-white" hover-class="tui-button-white_hover" :hover-stay-time="150" @tap="reset">重置</view>
+				<view class="tui-drop-btn tui-button-primary" hover-class="tui-button-hover" :hover-stay-time="150" @tap="btnCloseDrop">确定</view>
+			</view>
+		</tui-top-dropdown>
 	</view>
 </template>
 
@@ -342,6 +342,16 @@ export default {
 			]
 		};
 	},
+	computed: {
+		translateY() {
+			let clientHeight = uni.getSystemInfoSync().screenHeight;
+			let translate = 290 - clientHeight * 0.2;
+			//#ifdef MP-WEIXIN
+			translate-= 80;
+			//#endif
+			return translate;
+		}
+	},
 	methods: {
 		btnDropChange(index) {
 			this.proDropData = [...this.proDropList[index].list];
@@ -382,6 +392,7 @@ export default {
 <style lang="scss">
 .view-course-search {
 	.tui-header {
+		height: 40px;
 		.tui-header-bottom {
 			.tui-bottom-item {
 				.icon-angle {
@@ -551,7 +562,7 @@ export default {
 }
 
 .tui-header-bottom {
-	height: 80rpx;
+	height: 40px;
 	padding: 0 30rpx;
 	box-sizing: border-box;
 	font-size: 28rpx;
@@ -578,6 +589,7 @@ export default {
 	/* background: #f2f2f2; */
 	margin-right: 20rpx;
 	white-space: nowrap;
+	height: 40px;
 }
 
 .tui-bottom-item:last-child {
@@ -662,5 +674,15 @@ export default {
 	height: 100rpx;
 	line-height: 100rpx;
 	border: 0;
+}
+
+.top-dropdown-box {
+	margin-top: 40px;
+}
+</style>
+
+<style lang="scss" scoped>
+.tui-dropdown-box {
+	top: 40px;
 }
 </style>

@@ -72,12 +72,14 @@
 	"easycom": {
 		"autoscan": true,
 		"custom": {
-			"tui-(.*)": "@/components/thorui/tui-$1/tui-$1.vue"
+			"tui-(.*)": "@/components/thorui/tui-$1/tui-$1.vue",
+			"custom-(.*)": "@/components/custom/custom-$1/custom-$1.vue",
+			"ticket-(.*)": "@/components/ticket/ticket-$1/ticket-$1.vue"
 		}
 	},
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "冰块管理系统",
+		"navigationBarTitleText": "冰场管理系统",
 		"navigationBarBackgroundColor": "#ffffff",
 		"backgroundColor": "#FFFFFF"
 	},

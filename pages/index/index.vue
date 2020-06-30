@@ -40,7 +40,7 @@
 			</view>
 			<view class="view-tap">
 				<view class="icon-button-ice-skate icon-button-view"><view class="iconfont icon-ice-skate"></view></view>
-				<view class="icon-button-tap">冰块简介</view>
+				<view class="icon-button-tap">冰场简介</view>
 			</view>
 			<view class="view-tap">
 				<view class="icon-button-coach icon-button-view"><view class="iconfont icon-coach"></view></view>
@@ -158,7 +158,7 @@
 				</view>
 			</view>
 		</view>
-		<notice v-model="showNotice" @close="onCloseNotice"></notice>
+		<ticket-notice v-model="showNotice" @close="onCloseNotice"></ticket-notice>
 	</view>
 </template>
 
@@ -377,7 +377,6 @@ export default {
 			this.showNotice = false;
 		},
 		onTicketClick() {
-			console.log('a');
 			uni.navigateTo({
 				url: '/pages/ticket/ticket-type'
 			});
@@ -540,7 +539,7 @@ export default {
 		}
 
 		.coach-num-null {
-			height: 56px;
+			height: 52px;
 		}
 
 		.coach-icon {
@@ -549,6 +548,7 @@ export default {
 
 		.coach-icon-img {
 			width: 58px;
+			height: 58px;
 		}
 
 		.icon-background {
@@ -754,14 +754,14 @@ export default {
 
 .tui-slide-image {
 	width: calc(100% - 60rpx);
-	height: calc(100% - 60rpx);
+	height: 148px;
 	display: block;
 	padding: 16rpx 30rpx 0px 30rpx;
 }
 
 .tui-banner-swiper {
 	width: 100%;
-	height: 390rpx;
+	height: 210px;
 	/* border-radius: 12rpx; */
 	overflow: hidden;
 	transform: translateY(0);
@@ -828,10 +828,6 @@ export default {
 .tui-activity-swiper {
 	height: 156rpx;
 	border-radius: 20rpx;
-}
-
-.gradient-view {
-	height: 390rpx;
 }
 
 .view-module {

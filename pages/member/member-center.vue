@@ -157,6 +157,7 @@ export default {
 				padding: 0px 0px 0px 0px;
 				border-radius: 15px;
 				margin: 0 auto;
+				height: 129px;
 				.view-member-link {
 					font-size: 20px;
 					padding: 45px 0px 0px 0px;
