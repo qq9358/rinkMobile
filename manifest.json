@@ -56,7 +56,7 @@
         "title" : "冰场管理系统",
         "router" : {
             "mode" : "history",
-            "base" : ""
+            "base" : "/login/"
         },
         "sdkConfigs" : {
             "maps" : {
